@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Pedido de Impressão</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="titulo">🖨️ Formulário de Pedido de Impressão</h1>
+
+        <div class="form-container">
+            <form method="POST" enctype="multipart/form-data">
+                <label>Setor:</label>
+                <select name="setor" required>
+                    <option>Infantil</option>
+                    <option>Anos Iniciais</option>
+                    <option>Anos Finais</option>
+                    <option>Ensino Médio</option>
+                    <option>Administrativo</option>
+                    <option>Prova Adaptada</option>
+                </select>
+
+                <label>Tipo de Impressão:</label>
+                <select name="tipo" required>
+                    <option>Colorida</option>
+                    <option>Preto e Branco</option>
+                </select>
+
+                <label>Quantidade de cópias:</label>
+                <input type="number" name="copias" required min="1" max="1000" value="1">
+
+                <label>Tamanho do papel:</label>
+                <select name="tamanho" required>
+                    <option>A4</option>
+                    <option>A3</option>
+                </select>
+
+                <label>Tipo de folha:</label>
+                <select name="papel" required>
+                    <option>Sulfite</option>
+                    <option>Opaline</option>
+                    <option>Alaska</option>
+                    <option>Canson</option>
+                    <option>Matema</option>
+                    <option>Etiqueta</option>
+                </select>
+
+                <label><input type="checkbox" name="frente_verso"> Frente e Verso</label>
+                <label><input type="checkbox" name="encadernacao"> Encadernação</label>
+                <label><input type="checkbox" name="plastificacao"> Plastificação</label>
+
+                <label>Data desejada para entrega:</label>
+                <input type="date" name="data_entrega" id="data_entrega" required><br><br>
+
+                <label>Seu nome:</label>
+                <input type="text" name="nome" required>
+
+                <label>Seu e-mail:</label>
+                <input type="email" name="email" required>
+
+                <label>Arquivo (PDF, JPG ou PNG):</label>
+                <form method="POST" enctype="multipart/form-data">
+                <input type="file" name="arquivo" accept=".pdf, .jpg, .jpeg, .png" multiple required>
+
+                <button type="submit">Enviar Pedido</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function () {
+            const dataInput = document.getElementById("data_entrega");
+            const hoje = new Date();
+            hoje.setDate(hoje.getDate() + 2); // adiciona 2 dias
+
+            const ano = hoje.getFullYear();
+            const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+            const dia = String(hoje.getDate()).padStart(2, '0');
+            const dataMinima = `${ano}-${mes}-${dia}`;
+
+            dataInput.min = dataMinima;
+        }
+    </script>
+</body>
+</html>
