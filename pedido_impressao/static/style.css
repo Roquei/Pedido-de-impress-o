@@ -6,11 +6,11 @@ body {
 }
 
 .container {
-    max-width: 500px;
+    max-width: 900px;
     margin: 40px;
-    padding: 60px;
+    padding: 30px;
     background-color: #ffffff;
-    border-radius: 40px;
+    border-radius: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -71,4 +71,24 @@ button:hover {
     max-width: 300px;
     height: auto;
     border-radius: 15px;
+}
+
+
+.logo {
+    width: 120px;
+    margin-bottom: 20px;
+}
+
+.btn-voltar {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 20px;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.btn-voltar:hover {
+    background-color: #0056b3;
 }
