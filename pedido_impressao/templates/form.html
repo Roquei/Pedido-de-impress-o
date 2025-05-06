@@ -12,20 +12,29 @@
         <div class="form-container">
             <form method="POST" enctype="multipart/form-data">
                 <label>Setor:</label>
-                <select name="setor" required>
-                    <option>Infantil</option>
-                    <option>Anos Iniciais</option>
-                    <option>Anos Finais</option>
-                    <option>Ensino Médio</option>
-                    <option>Administrativo</option>
-                    <option>Prova Adaptada</option>
-                </select>
+                <select name="setor" id="setor" required onchange="atualizarTurmas()">
+                    <option value="">Selecione o setor</option>
+                    <option value="Infantil">Educação Infantil</option>
+                    <option value="Anos Iniciais">Anos Iniciais</option>
+                    <option value="Anos Finais">Anos Finais</option>
+                    <option value="Ensino Médio">Ensino Médio</option>
+                    <option value="Administrativo">Administrativo</option>
+                </select><br><br>
+                
+                <label>Turma:</label>
+                <select name="turma" id="turma" required>
+                    <option value="">Selecione a turma</option>
+                </select><br><br>
 
-                <label>Tipo de Impressão:</label>
-                <select name="tipo" required>
-                    <option>Colorida</option>
-                    <option>Preto e Branco</option>
-                </select>
+                <label>Tipo de Impressão:</label><br>
+                <input type="radio" name="tipo" value="Colorida (todas as páginas)" onchange="mostrarCampoPaginas(false)"> Colorida (todas as páginas)<br>
+                <input type="radio" name="tipo" value="Parcialmente colorida" onchange="mostrarCampoPaginas(true)"> Colorida (parcial)<br>
+                <input type="radio" name="tipo" value="Preto e Branco" onchange="mostrarCampoPaginas(false)"> Preto e Branco<br><br>
+
+                <div id="paginasColoridas" style="display:none;">
+                    <label>Informe os números das páginas coloridas (ex: 1, 3, 7):</label>
+                    <input type="text" name="coloridas_paginas">
+                </div><br>
 
                 <label>Quantidade de cópias:</label>
                 <input type="number" name="copias" required min="1" max="1000" value="1">
@@ -46,6 +55,7 @@
                     <option>Etiqueta</option>
                 </select>
 
+                <label>Acabamento:</label><br>
                 <label><input type="checkbox" name="frente_verso"> Frente e Verso</label>
                 <label><input type="checkbox" name="encadernacao"> Encadernação</label>
                 <label><input type="checkbox" name="plastificacao"> Plastificação</label>
@@ -60,8 +70,7 @@
                 <input type="email" name="email" required>
 
                 <label>Arquivo (PDF, JPG ou PNG):</label>
-                <form method="POST" enctype="multipart/form-data">
-                <input type="file" name="arquivo" accept=".pdf, .jpg, .jpeg, .png" multiple required>
+                <input type="file" name="arquivo" accept=".pdf, .jpg, .jpeg, .png" multiple required><br><br>
 
                 <button type="submit">Enviar Pedido</button>
             </form>
@@ -80,6 +89,37 @@
             const dataMinima = `${ano}-${mes}-${dia}`;
 
             dataInput.min = dataMinima;
+        }
+
+        function mostrarCampoPaginas(mostrar) {
+            const div = document.getElementById('paginasColoridas');
+            div.style.display = mostrar ? 'block' : 'none';
+        }
+
+        function atualizarTurmas() {
+            const setor = document.getElementById('setor').value;
+            const turmaSelect = document.getElementById('turma');
+
+            const turmasPorSetor = {
+                'Infantil': ['Infantil 2', 'Infantil 3', 'Infantil 4', 'Infantil 5'],
+                'Anos Iniciais': ['1º ano', '2º ano', '3º ano', '4º ano', '5º ano'],
+                'Anos Finais': ['6º ano', '7º ano', '8º ano', '9º ano'],
+                'Ensino Médio': ['1ª série', '2ª série', '3ª série'],
+                'Administrativo': ['Atendimento', 'Comunicação', 'Coordeação', 'Financeiro',
+                                   'Recursos Humanos', 'Pastoral', 'Secretaria', 'Serviços Gerais', 'TI']
+            };
+
+            // Limpa as opções anteriores
+            turmaSelect.innerHTML = '<option value="">Selecione a turma</option>';
+
+            if (turmasPorSetor[setor]) {
+                turmasPorSetor[setor].forEach(turma => {
+                    const option = document.createElement('option');
+                    option.value = turma;
+                    option.textContent = turma;
+                    turmaSelect.appendChild(option);
+                });
+            }
         }
     </script>
 </body>
