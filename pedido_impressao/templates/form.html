@@ -7,10 +7,13 @@
 </head>
 <body>
     <div class="container">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='logo2.png') }}" alt="Logo do Colégio" style="max-width: 150px;">
+        </div>
         <h1 class="titulo">🖨️ Formulário de Pedido de Impressão</h1>
 
         <div class="form-container">
-            <form method="POST" enctype="multipart/form-data">
+            <form id="formulario" method="POST" enctype="multipart/form-data">
                 <label>Setor:</label>
                 <select name="setor" id="setor" required onchange="atualizarTurmas()">
                     <option value="">Selecione o setor</option>
@@ -56,6 +59,7 @@
                 </select>
 
                 <label>Acabamento:</label><br>
+                <label><input type="checkbox" name="frente"> Frente</label>
                 <label><input type="checkbox" name="frente_verso"> Frente e Verso</label>
                 <label><input type="checkbox" name="encadernacao"> Encadernação</label>
                 <label><input type="checkbox" name="plastificacao"> Plastificação</label>
@@ -121,6 +125,20 @@
                 });
             }
         }
+    </script>
+
+<script>
+    document.getElementById("formulario").addEventListener("submit", function(event) {
+        const frente = document.querySelector('input[name="frente"]');
+        const frenteVerso = document.querySelector('input[name="frente_verso"]');
+        const encadernacao = document.querySelector('input[name="encadernacao"]');
+        const plastificacao = document.querySelector('input[name="plastificacao"]');
+    
+        if (!frente.checked && !frenteVerso.checked && !encadernacao.checked && !plastificacao.checked) {
+            alert("Por favor, selecione pelo menos um tipo de acabamento.");
+            event.preventDefault(); // Impede o envio do formulário
+        }
+    });
     </script>
 </body>
 </html>
