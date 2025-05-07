@@ -11,8 +11,8 @@ app = Flask(__name__)
 app.config['MAIL_SERVER'] = 'smtp.office365.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'teste.copias@redesc-edu.org.br' #nome de quem vai enviar 
-app.config['MAIL_PASSWORD'] = '12345678'
+app.config['MAIL_USERNAME'] = 'teste.copias@redesc-edu.org.br'
+app.config['MAIL_PASSWORD'] = '1234@csc'
 app.config['MAIL_DEFAULT_SENDER'] = app.config['MAIL_USERNAME']
 
 mail = Mail(app)
@@ -98,7 +98,7 @@ Arquivos enviados:"""
         try:
             msg = Message(
                 subject="Novo Pedido de Impressão",
-                recipients=['roqueiago@outlook.com'], #e-mail que vai receber 
+                recipients=['roqueiago@outlook.com'],
                 body=corpo
             )
 
